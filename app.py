@@ -297,7 +297,7 @@ def main():
     channel_id = st.sidebar.text_input('Enter Channel ID')
 
     if st.sidebar.button('Fetch Data'):
-        api_key = 'AIzaSyCxG8VPxu5t_FhKoZfF_g3KqiV35z9Bq0U'  # Replace with your YouTube API key
+        api_key = ' '   your YouTube API key
         channel_data, video_data = fetch_youtube_data(api_key, channel_id)
         create_tables()
         insert_into_db(channel_data, video_data)
