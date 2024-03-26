@@ -6,10 +6,10 @@ from googleapiclient.discovery import build
 # Function to connect to MySQL database
 def connect_to_db():
     conn = mysql.connector.connect(
-        host="sql6.freesqldatabase.com",
-        user="sql6694206",
-        password="bCtXmq6LUs",
-        database="sql6694206"
+        host="your_hostname",
+        user="your_username",
+        password="your_password",
+        database="your_database_name"
     )
     return conn
 
@@ -297,7 +297,7 @@ def main():
     channel_id = st.sidebar.text_input('Enter Channel ID')
 
     if st.sidebar.button('Fetch Data'):
-        api_key = ' '   your YouTube API key
+        api_key = 'your YouTube API key'   
         channel_data, video_data = fetch_youtube_data(api_key, channel_id)
         create_tables()
         insert_into_db(channel_data, video_data)
@@ -316,12 +316,12 @@ def main():
         st.write(df1)
 
     if st.sidebar.button('Channels with the most number of videos and their count'):
-        query2 = "SELECT c.channel_name, COUNT(*) AS video_count FROM channels c JOIN videos v ON c.channel_id = v.channel_id GROUP BY c.channel_name ORDER BY video_count DESC LIMIT 1;"
+        query2 = "SELECT c.channel_name, COUNT(*) AS video_count FROM channels c JOIN videos v ON c.channel_id = v.channel_id GROUP BY c.channel_name ORDER BY video_count DESC;"
         df2 = execute_query(query2)
         st.write(df2)
 
     if st.sidebar.button('Top 10 most viewed videos and their respective channels'):
-        query3 = "SELECT v.video_name, c.channel_name, v.view_count FROM videos v JOIN channels c ON v.channel_id = c.channel_id ORDER BY v.view_count DESC LIMIT 10;"
+        query3 = "SELECT v.video_name, c.channel_name, v.view_count FROM videos v JOIN channels c ON v.channel_id = c.channel_id ORDER BY v.view_count DESC ;"
         df3 = execute_query(query3)
         st.write(df3)
 
@@ -331,7 +331,7 @@ def main():
         st.write(df4)
 
     if st.sidebar.button('Videos with the highest number of likes and their corresponding channel names'):
-        query5 = "SELECT v.video_name, c.channel_name, v.like_count FROM videos v JOIN channels c ON v.channel_id = c.channel_id ORDER BY v.like_count DESC LIMIT 1;"
+        query5 = "SELECT v.video_name, c.channel_name, v.like_count FROM videos v JOIN channels c ON v.channel_id = c.channel_id ORDER BY v.like_count DESC;"
         df5 = execute_query(query5)
         st.write(df5)
 
@@ -361,8 +361,7 @@ def main():
                     JOIN comments c ON v.video_id = c.video_id 
                     JOIN channels ch ON v.channel_id = ch.channel_id 
                     GROUP BY v.video_name, ch.channel_name
-                    ORDER BY comment_count DESC
-                    LIMIT 1;
+                    ORDER BY comment_count DESC;
 
                     '''
         df10 = execute_query(query10)
